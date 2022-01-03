@@ -8,7 +8,7 @@ class CarListTest {
 
     @BeforeEach
     void setUp() {
-        // init
+        carList = new CarArrayList();
         for (int i = 0; i < 100; i++) {
             carList.add(new Car("Brand" + i, i));
         }
@@ -27,8 +27,11 @@ class CarListTest {
 
     @Test
     public void removeByObject() {
-        assertTrue(carList.remove(new Car("Brand2", 2)), "remove had to returned true ");
-        assertEquals(99, carList.size(), "expected 99 after removing by object");
+        Car car = new Car("T", 10);
+        carList.add(car);
+        assertEquals(101, carList.size(),"increased after .add(car)");
+        assertTrue(carList.remove(car), ".remove(car)");
+        assertEquals(100, carList.size(), "after .remove(car)");
     }
 
     @Test
