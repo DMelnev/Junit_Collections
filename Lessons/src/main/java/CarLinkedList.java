@@ -6,7 +6,7 @@ public class CarLinkedList implements CarList {
 
     @Override
     public Car get(int index) {
-        return null;
+        return getNode(index).value;
     }
 
     @Override
@@ -43,15 +43,28 @@ public class CarLinkedList implements CarList {
 
     @Override
     public boolean remove(Car car) {
+        Node node = first;
+        for ( int i =0; i < size; i++){
+            if (node.value.equals(car)){
+                removeAt(i);
+                return true;
+            }
+            node = node.next;
+        }
         return false;
     }
 
     @Override
     public boolean removeAt(int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException();
-        }
-        return false;
+        Node node = getNode(index);
+        Node next = node.next;
+        Node previous = node.previous;
+        if (previous != null) previous.next = next;
+        else first = next;
+        if (next != null) next.previous = previous;
+        else last = previous;
+        size--;
+        return true;
     }
 
     @Override
@@ -61,10 +74,16 @@ public class CarLinkedList implements CarList {
 
     @Override
     public void clear() {
+        first = null;
+        last = null;
+        size = 0;
 
     }
 
     private Node getNode(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         Node node = first;
         for (int i = 0; i < index; i++) {
             node = node.next;
