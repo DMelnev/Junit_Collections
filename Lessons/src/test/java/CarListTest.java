@@ -54,5 +54,15 @@ class CarListTest {
         Car car = carList.get(0);
         assertEquals("Brand0", car.getBrand(),"expected \"Brand0\" after .get");
     }
+    @Test
+    public void addObjectInto(){
+        Car car = new Car("Audi", 25);
+        carList.add(car, 50);
+        Car carFrom = carList.get(50);
+        assertEquals("Audi", carFrom.getBrand(),"equal objects after add to index 50");
+        carList.add(car, 101);
+        carFrom = carList.get(101);
+        assertEquals("Audi", carFrom.getBrand(),"equal objects after add to index 101");
+    }
 
 }
