@@ -1,5 +1,5 @@
 public interface CarCollection {
-    void add(Car car);
+    boolean add(Car car);
 
     boolean remove(Car car);
 
