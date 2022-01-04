@@ -85,6 +85,28 @@ public class CarHashSet implements CarSet {
         array = newArray;
     }
 
+    @Override
+    public boolean contains(Car car){
+        int position = getElementPosition(car, array.length);
+        if (array[position] == null) {
+            return false;
+        }
+        Entry secondLast = array[position];
+        Entry last = secondLast.next;
+        if (secondLast.value.equals(car)) {
+            return true;
+        }
+        while (last != null) {
+            if (last.value.equals(car)) {
+                return true;
+            } else {
+                secondLast = last;
+                last = last.next;
+            }
+        }
+        return false;
+    }
+
     private int getElementPosition(Car car, int arrayLength) {
         return Math.abs(car.hashCode() % arrayLength);
     }

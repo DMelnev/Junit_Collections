@@ -11,10 +11,11 @@ public class CarArrayList implements CarList {
     }
 
     @Override
-    public void add(Car car) {
+    public boolean add(Car car) {
         increaseArrayIfOutOff();
         array[size] = car;
         size++;
+        return true;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class CarArrayList implements CarList {
     }
 
     @Override
-    public void add(Car car, int index) {
+    public boolean add(Car car, int index) {
         increaseArrayIfOutOff();
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
@@ -54,6 +55,15 @@ public class CarArrayList implements CarList {
         System.arraycopy(array, index, array, index + 1, size - index);
         size++;
         array[index] = car;
+        return true;
+    }
+
+    @Override
+    public boolean contains(Car car) {
+        for (int i = 0; i < size; i++) {
+            if (car.equals(array[i])) return true;
+        }
+        return false;
     }
 
     public void checkIndexOutOfBounds(int index) {
