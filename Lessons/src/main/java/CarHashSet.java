@@ -100,7 +100,6 @@ public class CarHashSet implements CarSet {
             if (last.value.equals(car)) {
                 return true;
             } else {
-                secondLast = last;
                 last = last.next;
             }
         }
