@@ -45,3 +45,4 @@ public class Car {
         return Objects.hash(brand, number);
     }
 }
+
