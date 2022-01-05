@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,72 +8,79 @@ public class Main {
 //        System.out.println(car1.equals(car2));
 //        System.out.println(car1.hashCode());
 //        System.out.println(car2.hashCode());
-//        ListNode l1 = pack(9L);
-//        ListNode l2 = pack(9999999991L);
-//        ListNode l1 = pack(9999999L);
-//        ListNode l2 = pack(9999L);
+        ArrayList<Integer> list1 = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+//        list1.add(1);
+//        list1.add(9);
+//        list1.add(9);
+//
+//        list1.add(9);
+//        list1.add(9);
+//        list1.add(9);
+//        list1.add(9);
+//        list1.add(9);
+//        list1.add(9);
+//        list1.add(9);
+//
+//        list2.add(9);
 
-//        System.out.println(unpack(addTwoNumbers(l1, l2)));
+        list1.add(9);
+        list1.add(4);
+        list1.add(2);
+
+        list2.add(9);
+        list2.add(4);
+        list2.add(6);
+        list2.add(5);
+
+        ListNode l1 = pack(list1);
+        ListNode l2 = pack(list2);
+//        System.out.println(unpack(l1));
+//        System.out.println(unpack(l2));
+
+        System.out.println(unpack(addTwoNumbers(l1, l2)));
 
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
-        return new ListNode();
+        return pack(addList(unpack(l1), unpack(l2)));
     }
 
-    private static ArrayList unpack(ListNode list) {
+    private static ArrayList<Integer> unpack(ListNode list) {
         ArrayList<Integer> newList = new ArrayList<>();
         while (list != null) {
             newList.add(list.val);
             list = list.next;
         }
+        Collections.reverse(newList);
         return newList;
     }
 
     private static ArrayList<Integer> addList(ArrayList<Integer> l1, ArrayList<Integer> l2) {
         int length = Math.max(l1.size(), l2.size());
         ArrayList<Integer> res = new ArrayList<>();
-        int over = 0, sum = 0, resL1, resL2;
+        int over = 0, sum;
         for (int i = 0; i < length; i++) {
-            resL1 = (i >= l1.size()) ? 0 : l1.get(i);
-            resL2 = (i >= l2.size()) ? 0 : l2.get(i);
-            sum = resL1 + resL2;
+            sum = ((i >= l1.size()) ? 0 : l1.get(i)) + ((i >= l2.size()) ? 0 : l2.get(i)) + over;
             res.add(i, sum % 10);
-            over = (sum - sum % 10) / 10;
+            over = sum / 10;
         }
         if (over > 0) res.add(over);
         return res;
     }
 
-    private static long unpack2(ListNode list) {
-        int index = 1, sum = 0;
-
-        while (list != null) {
-            sum += list.val * index;
-            index *= 10;
-            list = list.next;
-        }
-        return sum;
-    }
-
-    private static ListNode pack2(long digit) {
-        System.out.println((int) digit % 10);
-        ListNode first = new ListNode((int) digit % 10, null);
+    private static ListNode pack(ArrayList<Integer> list) {
+       // Collections.reverse(list);
+        ListNode first = new ListNode(list.get(0), null);
         ListNode prev = first;
         ListNode next;
-        digit /= 10;
-        while (digit > 0) {
-            System.out.println((int) digit % 10);
-            next = new ListNode(((int) digit % 10), null);
+        for (int i = 1; i < list.size(); i++) {
+            next = new ListNode(list.get(i), null);
             prev.next = next;
             prev = next;
-            digit /= 10;
         }
-        System.out.println();
         return first;
     }
-
 
 }
 
