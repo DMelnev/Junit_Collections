@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class Main {
     public static void main(String[] args) {
-        List<Car> cars= new ArrayList<>();
+        CarCollection cars= new CarArrayList();
         for (int i = 0; i < 100; i++) {
             cars.add(new Car("Brand" + i, i));
         }
