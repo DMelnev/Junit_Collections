@@ -12,11 +12,12 @@ public class Main {
 //        ListNode l1 = pack(9999999L);
 //        ListNode l2 = pack(9999L);
 
-        System.out.println(unpack(addTwoNumbers(l1, l2)));
+//        System.out.println(unpack(addTwoNumbers(l1, l2)));
 
-}
+    }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+
         return new ListNode();
     }
 
@@ -27,6 +28,21 @@ public class Main {
             list = list.next;
         }
         return newList;
+    }
+
+    private static ArrayList<Integer> addList(ArrayList<Integer> l1, ArrayList<Integer> l2) {
+        int length = Math.max(l1.size(), l2.size());
+        ArrayList<Integer> res = new ArrayList<>();
+        int over = 0, sum = 0, resL1, resL2;
+        for (int i = 0; i < length; i++) {
+            resL1 = (i >= l1.size()) ? 0 : l1.get(i);
+            resL2 = (i >= l2.size()) ? 0 : l2.get(i);
+            sum = resL1 + resL2;
+            res.add(i, sum % 10);
+            over = (sum - sum % 10) / 10;
+        }
+        if (over > 0) res.add(over);
+        return res;
     }
 
     private static long unpack2(ListNode list) {
