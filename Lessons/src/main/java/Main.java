@@ -52,7 +52,7 @@ public class Main {
             newList.add(list.val);
             list = list.next;
         }
-        Collections.reverse(newList);
+        //Collections.reverse(newList);
         return newList;
     }
 
