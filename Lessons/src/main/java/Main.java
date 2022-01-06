@@ -1,13 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Main {
     public static void main(String[] args) {
-        CarCollection cars= new CarArrayList();
+        Set<Integer> numbers = new TreeSet<>();
         for (int i = 0; i < 100; i++) {
-            cars.add(new Car("Brand" + i, i));
+            numbers.add((int) (Math.random() * 10));
         }
-        for(Car car : cars){
-            System.out.println(car);
+        for (int dig : numbers) {
+            System.out.println(dig);
         }
     }
 }
