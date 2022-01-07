@@ -42,46 +42,37 @@ public class CarHashMap implements CarMap {
     @Override
     public Car get(CarOwner key) {
         int position = getElementPosition(key, array.length);
-        if (array[position].key.equals(key)) {
-            return array[position].value;
-        }
-        Entry extendElement = array[position].next;
-        while (extendElement != null) {
-            if (extendElement.key.equals(key)) {
-                return array[position].value;
+        Entry existedElement = array[position];
+        while (existedElement != null) {
+            if (existedElement.key.equals(key)) {
+                return existedElement.value;
             }
-            extendElement = extendElement.next;
+            existedElement = existedElement.next;
         }
         return null;
     }
 
     @Override
     public Set<CarOwner> keySet() {
-        Set<CarOwner> set = new HashSet<>();
+        Set<CarOwner> result = new HashSet<>();
         for (Entry sector : array) {
-            if (sector != null) {
-                set.add(sector.key);
-                Entry extend = sector.next;
-                while (extend != null) {
-                    set.add(extend.key);
-                    extend = extend.next;
-                }
+            Entry existed = sector;
+            while (existed != null) {
+                result.add(existed.key);
+                existed = existed.next;
             }
         }
-        return set;
+        return result;
     }
 
     @Override
     public List<Car> values() {
         List<Car> list = new ArrayList<>();
         for (Entry sector : array) {
-            if (sector != null) {
-                list.add(sector.value);
-                Entry extend = sector.next;
-                while (extend != null) {
-                    list.add(sector.value);
-                    extend = extend.next;
-                }
+            Entry existed = sector;
+            while (existed != null) {
+                list.add(existed.value);
+                existed = existed.next;
             }
         }
         return list;
@@ -93,6 +84,7 @@ public class CarHashMap implements CarMap {
         if (array[position] == null) return false;
         if (array[position].key.equals(key)) {
             array[position] = array[position].next;
+            size--;
             return true;
         }
         Entry prev = array[position];
@@ -100,6 +92,7 @@ public class CarHashMap implements CarMap {
         while (existed != null) {
             if (existed.key.equals(key)) {
                 prev.next = existed.next;
+                size--;
                 return true;
             }
             prev = existed;
