@@ -8,8 +8,7 @@ class CarMapTest {
 
     @BeforeEach
     void setUp() {
-//        CarMap<CarOwner><Car> carMap= new CarOwner();
-//        carList = new CarLinkedList();
+        map = new CarHashMap();
         for (int i = 0; i < 100; i++) {
             map.put(new CarOwner(i, "Brand" + i, "lastname"), new Car("Brand" + i, i));
         }
@@ -18,8 +17,8 @@ class CarMapTest {
     @Test
     void putSizeRemove() {
         assertEquals(100, map.size(), "after putting 100 objects");
-        assertEquals(100,map.keySet().size(), "numbers of values");
-        assertEquals(100,map.values().size(), "numbers of keys");
+        assertEquals(100, map.keySet().size(), "numbers of values");
+        assertEquals(100, map.values().size(), "numbers of keys");
         Car car = new Car("BMW", 12);
         CarOwner owner = new CarOwner(12, "SS" + 12, "lastname");
         map.put(owner, car);
@@ -27,7 +26,7 @@ class CarMapTest {
         assertEquals(car, map.get(owner), "check present early added article");
         map.remove(owner);
         assertEquals(100, map.size(), "after remove object");
-        assertFalse(map.remove(owner),"after remove the same object");
+        assertFalse(map.remove(owner), "after remove the same object");
         map.clear();
         assertEquals(0, map.size(), "after clear all objects");
     }

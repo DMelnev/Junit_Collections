@@ -19,26 +19,25 @@ public class CarHashMap implements CarMap {
         if (added) size++;
     }
 
-    public boolean put(CarOwner key, Car value, Entry[] dst) {
+    private boolean put(CarOwner key, Car value, Entry[] dst) {
         int position = getElementPosition(key, dst.length);
         if (dst[position] == null) {
-            dst[position] = new Entry(value, key, null);
+            dst[position] = new Entry(key, value, null);
             return true;
         }
-        Entry extendElement = dst[position];
+        Entry existedElement = dst[position];
         while (true) {
-            if (extendElement.key.equals(key)) {
-                extendElement.value = value;
+            if (existedElement.key.equals(key)) {
+                existedElement.value = value;
                 return false;
             }
-            if (extendElement.next == null) {
-                extendElement.next = new Entry(value, key, null);
+            if (existedElement.next == null) {
+                existedElement.next = new Entry(key, value, null);
                 return true;
             }
-            extendElement = extendElement.next;
+            existedElement = existedElement.next;
         }
     }
-
 
     @Override
     public Car get(CarOwner key) {
@@ -91,36 +90,26 @@ public class CarHashMap implements CarMap {
     @Override
     public boolean remove(CarOwner key) {
         int position = getElementPosition(key, array.length);
+        if (array[position] == null) return false;
         if (array[position].key.equals(key)) {
             array[position] = array[position].next;
             return true;
         }
         Entry prev = array[position];
-        Entry extend = array[position].next;
-        while (extend != null) {
-            if (extend.key.equals(key)) {
-                prev.next = extend.next;
+        Entry existed = array[position].next;
+        while (existed != null) {
+            if (existed.key.equals(key)) {
+                prev.next = existed.next;
                 return true;
             }
-            prev = extend;
-            extend = extend.next;
+            prev = existed;
+            existed = existed.next;
         }
         return false;
     }
 
     @Override
     public int size() {
-        int size = 0;
-        for (Entry sector : array) {
-            if (sector != null) {
-                size++;
-                Entry extend = sector.next;
-                while (extend != null) {
-                    size++;
-                    extend = extend.next;
-                }
-            }
-        }
         return size;
     }
 
@@ -135,7 +124,7 @@ public class CarHashMap implements CarMap {
         for (CarHashMap.Entry entry : array) {
             CarHashMap.Entry existedElement = entry;
             while (existedElement != null) {
-//               put(existedElement.value, newArray);
+                put(existedElement.key, existedElement.value, newArray);
                 existedElement = existedElement.next;
             }
         }
@@ -151,7 +140,7 @@ public class CarHashMap implements CarMap {
         private CarOwner key;
         private CarHashMap.Entry next;
 
-        public Entry(Car value, CarOwner key, Entry next) {
+        public Entry(CarOwner key, Car value, Entry next) {
             this.value = value;
             this.key = key;
             this.next = next;
