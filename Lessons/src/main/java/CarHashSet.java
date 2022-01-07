@@ -111,6 +111,7 @@ public class CarHashSet implements CarSet {
     }
 
     private int getElementPosition(Car car, int arrayLength) {
+
         return Math.abs(car.hashCode() % arrayLength);
     }
 
