@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,46 +27,107 @@ public class CarHashMap implements CarMap {
         }
         Entry extendElement = dst[position];
         while (true) {
-            if (extendElement.value.equals(value) && extendElement.key.equals(key)) {
-                dst[position] = new Entry(value, key, null);
+            if (extendElement.key.equals(key)) {
+                extendElement.value = value;
                 return false;
             }
-            if (extendElement == null) {
-                dst[position] = new Entry(value, key, null);
+            if (extendElement.next == null) {
+                extendElement.next = new Entry(value, key, null);
                 return true;
-            } else extendElement = extendElement.next;
+            }
+            extendElement = extendElement.next;
         }
     }
 
 
     @Override
     public Car get(CarOwner key) {
+        int position = getElementPosition(key, array.length);
+        if (array[position].key.equals(key)) {
+            return array[position].value;
+        }
+        Entry extendElement = array[position].next;
+        while (extendElement != null) {
+            if (extendElement.key.equals(key)) {
+                return array[position].value;
+            }
+            extendElement = extendElement.next;
+        }
         return null;
     }
 
     @Override
     public Set<CarOwner> keySet() {
-        return null;
+        Set<CarOwner> set = new HashSet<>();
+        for (Entry sector : array) {
+            if (sector != null) {
+                set.add(sector.key);
+                Entry extend = sector.next;
+                while (extend != null) {
+                    set.add(extend.key);
+                    extend = extend.next;
+                }
+            }
+        }
+        return set;
     }
 
     @Override
     public List<Car> values() {
-        return null;
+        List<Car> list = new ArrayList<>();
+        for (Entry sector : array) {
+            if (sector != null) {
+                list.add(sector.value);
+                Entry extend = sector.next;
+                while (extend != null) {
+                    list.add(sector.value);
+                    extend = extend.next;
+                }
+            }
+        }
+        return list;
     }
 
     @Override
     public boolean remove(CarOwner key) {
+        int position = getElementPosition(key, array.length);
+        if (array[position].key.equals(key)) {
+            array[position] = array[position].next;
+            return true;
+        }
+        Entry prev = array[position];
+        Entry extend = array[position].next;
+        while (extend != null) {
+            if (extend.key.equals(key)) {
+                prev.next = extend.next;
+                return true;
+            }
+            prev = extend;
+            extend = extend.next;
+        }
         return false;
     }
 
     @Override
     public int size() {
-        return 0;
+        int size = 0;
+        for (Entry sector : array) {
+            if (sector != null) {
+                size++;
+                Entry extend = sector.next;
+                while (extend != null) {
+                    size++;
+                    extend = extend.next;
+                }
+            }
+        }
+        return size;
     }
 
     @Override
     public void clear() {
-
+        size = 0;
+        array = new CarHashMap.Entry[INITIAL_CAPACITY];
     }
 
     private void increaseArray() {
