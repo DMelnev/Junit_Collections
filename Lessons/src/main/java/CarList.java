@@ -1,11 +1,11 @@
-public interface CarList extends CarCollection{
+public interface CarList<T> extends CarCollection<T>{
     Car get(int index);
 
-    boolean add(Car car);
+    boolean add(T car);
 
-    boolean add(Car car, int index);
+    boolean add(T car, int index);
 
-    boolean remove(Car car);
+    boolean remove(T car);
 
     boolean removeAt(int index);
 
