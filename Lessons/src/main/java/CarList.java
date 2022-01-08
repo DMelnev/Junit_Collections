@@ -1,5 +1,5 @@
 public interface CarList<T> extends CarCollection<T>{
-    Car get(int index);
+    T get(int index);
 
     boolean add(T car);
 
