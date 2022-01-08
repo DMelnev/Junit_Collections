@@ -9,6 +9,7 @@ class CarQueueTest {
 
     @BeforeEach
     void setUp() {
+        queue = new CarLinkedList();
         for (int i = 0; i < 10; i++) {
             queue.add(new Car("brand" + i, i));
         }
@@ -22,14 +23,14 @@ class CarQueueTest {
     @Test
     void peek() {
         Car car = queue.peek();
-        assertEquals("brand0", car, "test peek");
+        assertEquals("brand0", car.getBrand(), "test peek");
         assertEquals(10,queue.size(), "after peek");
     }
 
     @Test
     void poll() {
         Car car = queue.poll();
-        assertEquals("brand0", car, "test poll");
+        assertEquals("brand0", car.getBrand(), "test poll");
         assertEquals(9,queue.size(), "after poll");
     }
 }
