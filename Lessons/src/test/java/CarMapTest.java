@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarMapTest {
-    private CarMap map;
+    private CarMap<CarOwner, Car> map;
     private int count = 1000000;
 
     @BeforeEach
     void setUp() {
-        map = new CarHashMap();
+        map = new CarHashMap<>();
         for (int i = 0; i < count; i++) {
             map.put(new CarOwner(i, "Brand" + i, "lastname"), new Car("Brand" + i, i));
         }

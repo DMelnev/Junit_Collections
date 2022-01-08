@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarCollectionTest {
-    private CarCollection carCollection;
+    private CarCollection<Car> carCollection;
 
     @BeforeEach
     void setUp() {
-        carCollection = new CarHashSet();
-//        carList = new CarLinkedList();
+//        carCollection = new CarHashSet<>();
+//        carCollection = new CarArrayList<>();
+        carCollection = new CarLinkedList<>();
+
         for (int i = 0; i < 100; i++) {
             carCollection.add(new Car("Brand" + i, i));
         }
@@ -26,7 +28,7 @@ public class CarCollectionTest {
     @Test
     void testForeach(){
         int index = 0;
-        for(Car car : carCollection){
+        for(Object car : carCollection){
             index ++;
         }
         assertEquals(100, index,"");
