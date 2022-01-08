@@ -1,9 +1,8 @@
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.io.Serializable;
+import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main{
+    public static void main(String[] args){
         Set<Car> cars = new TreeSet<>(new Comparator<Car>() {
             @Override
             public int compare(Car o1, Car o2) {
@@ -18,6 +17,7 @@ public class Main {
         for (Car car : cars) {
             System.out.println(car);
         }
+        NavigableMap<String, Integer> map = new TreeMap<>();
 
     }
 }
