@@ -1,8 +1,8 @@
 import java.io.Serializable;
 import java.util.*;
 
-public class Main{
-    public static void main(String[] args){
+public class Main {
+    public static void main(String[] args) {
         Set<Car> cars = new TreeSet<>(new Comparator<Car>() {
             @Override
             public int compare(Car o1, Car o2) {
@@ -18,6 +18,6 @@ public class Main{
             System.out.println(car);
         }
         NavigableMap<String, Integer> map = new TreeMap<>();
-
     }
+
 }
